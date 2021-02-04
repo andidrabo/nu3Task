@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { InventoryRecord } from '../models/inventory';
 
 @Component({
   selector: 'app-home',
@@ -7,8 +8,11 @@ import { HttpClient } from '@angular/common/http';
     styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+    inventory: InventoryRecord[];
+
     constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-        //http.get<any>(baseUrl + 'inventory/update-inventory').subscribe(result => {
-        //}, error => console.error(error));
+        http.get<InventoryRecord[]>(baseUrl + 'inventory/get-inventory').subscribe(result => {
+            this.inventory = result;
+        }, error => console.error(error));
     }
 }

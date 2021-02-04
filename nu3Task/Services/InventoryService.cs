@@ -17,6 +17,25 @@ namespace nu3Task.Services
             _nu3Context = nu3Context;
         }
 
+        public async Task<IEnumerable<Inventory>> GetInventory()
+        {
+            var inventory = await _nu3Context.Inventories
+                .Join(_nu3Context.Products,
+                inv => inv.Handle,
+                prod => prod.Handle,
+                (inv, prod) => new
+                 Inventory
+                {
+                    Id = inv.Id,
+                    Handle = inv.Handle,
+                    Amount = inv.Amount,
+                    Location = inv.Location,
+                    Title = prod.Title
+                }).ToListAsync();
+
+            return inventory;
+        }
+
         public async Task UpdateInventory(List<Inventory> inventories)
         {
             _nu3Context.Inventories.RemoveRange(await _nu3Context.Inventories.ToListAsync());

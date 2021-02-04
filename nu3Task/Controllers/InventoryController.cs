@@ -19,6 +19,12 @@ namespace nu3Task.Controllers
             _inventoryService = inventoryService;
         }
 
+        [HttpGet("get-inventory")]
+        public async Task<IEnumerable<Inventory>> GetInventory()
+        {
+            return await _inventoryService.GetInventory();
+        }
+
         [HttpGet("update-inventory")]
         public async Task<IActionResult> UpdateInventory()
         {

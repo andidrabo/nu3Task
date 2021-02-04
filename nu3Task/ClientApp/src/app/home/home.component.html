@@ -1,8 +1,62 @@
 <div id="form-container">
   <form>
-    <input type="file" id="inventory" accept=".csv" style="display:none;" />
-    <label for="inventory">Update inventory</label>
+    <div>
+      <input type="file" id="inventory" accept=".csv" style="display:none;" />
+      <label for="inventory">Update inventory</label>
+      <table class='table table-striped' aria-labelledby="tableLabel">
+        <thead>
+          <tr>
+            <th>Product title</th>
+            <th>Location</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let record of inventory">
+            <td>{{row.title}}</td>
+            <td>{{row.location}}</td>
+            <td>{{row.amount}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <input type="file" id="products" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style="display:none;" />
     <label for="products">Update products</label>
+    <table class='table table-striped' aria-labelledby="tableLabel">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Title</th>
+          <th>Vendor</th>
+          <th>Created on</th>
+          <th>Img</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Test test</td>
+          <td>Berlin</td>
+          <td>2</td>
+          <td>2</td>
+          <td><img src="https://via.placeholder.com/50/50" width="50" height="50" /></td>
+        </tr>
+        <tr>
+          <td>Test test</td>
+          <td>Berlin</td>
+          <td>2</td>
+          <td>2</td>
+          <td><img src="https://via.placeholder.com/50/50" width="50" height="50" /></td>
+        </tr>
+        <tr>
+          <td>Test test</td>
+          <td>Berlin</td>
+          <td>2</td>
+          <td>2</td>
+          <td><img src="https://via.placeholder.com/50/50" width="50" height="50" /></td>
+        </tr>
+      </tbody>
+    </table>
   </form>
+
 </div>
+
