@@ -1,7 +1,7 @@
 <div id="form-container">
   <form>
     <div>
-      <input type="file" id="inventory" accept=".csv" style="display:none;" />
+      <input type="file" id="inventory" accept=".csv" style="display:none;" (change)="updateInventory($event)"/>
       <label for="inventory">Update inventory</label>
       <table class='table table-striped' aria-labelledby="tableLabel">
         <thead>
