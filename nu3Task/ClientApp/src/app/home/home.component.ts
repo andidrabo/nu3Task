@@ -18,6 +18,7 @@ export class HomeComponent {
         @Inject('BASE_URL') private baseUrl: string,
         private fileUploadService: FileUploadService) {
         this.getInventory();
+        this.getProducts();
     }
 
     getInventory() {

@@ -17,6 +17,8 @@ namespace nu3Task.Services
             _nu3Context = nu3Context;
         }
 
+        public InventoryService() { }
+
         /// <summary>
         /// Get all inventory records
         /// </summary>

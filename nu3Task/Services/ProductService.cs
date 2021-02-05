@@ -19,6 +19,8 @@ namespace nu3Task.Services
             _nu3Context = nu3Context;
         }
 
+        public ProductService() { }
+
         /// <summary>
         /// Update old products (including related images) in db with new ones
         /// </summary>

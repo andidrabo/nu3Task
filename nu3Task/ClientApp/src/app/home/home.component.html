@@ -13,9 +13,9 @@
         </thead>
         <tbody>
           <tr *ngFor="let record of inventory">
-            <td>{{row.title}}</td>
-            <td>{{row.location}}</td>
-            <td>{{row.amount}}</td>
+            <td>{{record.title}}</td>
+            <td>{{record.location}}</td>
+            <td>{{record.amount}}</td>
           </tr>
         </tbody>
       </table>
@@ -29,17 +29,15 @@
             <th>Id</th>
             <th>Title</th>
             <th>Vendor</th>
-            <th>Created on</th>
             <th>Img</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let record of products">
-            <td>{{row.productId}}</td>
-            <td>{{row.title}}</td>
-            <td>{{row.vendor}}</td>
-            <td>{{row.created}}</td>
-            <td><img src="{{row.imgSrc}}" width="50" height="50" /></td>
+            <td>{{record.productId}}</td>
+            <td>{{record.title}}</td>
+            <td>{{record.vendor}}</td>
+            <td><img src="{{record.imgSrc}}" width="50" height="50" /></td>
           </tr>
         </tbody>
       </table>

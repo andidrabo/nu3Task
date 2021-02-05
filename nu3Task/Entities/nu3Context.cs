@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Options;
 
 #nullable disable
 
@@ -8,6 +9,7 @@ namespace nu3Task.Entities
 {
     public partial class nu3Context : DbContext
     {
+        private readonly string _connectionString;
         public nu3Context()
         {
         }
@@ -15,6 +17,11 @@ namespace nu3Task.Entities
         public nu3Context(DbContextOptions<nu3Context> options)
             : base(options)
         {
+        }
+
+        public nu3Context(IOptions<DbConnectionInfo> dbConnectionInfo)
+        {
+            _connectionString = dbConnectionInfo.Value.Nu3Context;
         }
 
         public virtual DbSet<Image> Images { get; set; }
@@ -25,8 +32,7 @@ namespace nu3Task.Entities
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=WINDOWS-SDH0A08;Database=nu3;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer(_connectionString);
             }
         }
 
