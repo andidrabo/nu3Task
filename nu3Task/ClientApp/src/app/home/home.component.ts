@@ -2,6 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { InventoryRecord } from '../models/inventory';
 import { Observable } from 'rxjs';
+import { FileUploadService } from '../Services/FileUploadService';
+import { Product } from '../models/products';
 
 @Component({
     selector: 'app-home',
@@ -9,29 +11,38 @@ import { Observable } from 'rxjs';
     styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-    inventory: InventoryRecord[];
-    httpClient: HttpClient;
-    baseUrl: string;
+    inventory: InventoryRecord[] = [];
+    products: Product[] = [];
 
-    constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-        this.httpClient = http;
-        this.baseUrl = baseUrl;
-
-        http.get<InventoryRecord[]>(`${baseUrl}inventory/get-inventory`).subscribe(result => {
-            this.inventory = result;
-        }, error => console.error(error));
+    constructor(private http: HttpClient,
+        @Inject('BASE_URL') private baseUrl: string,
+        private fileUploadService: FileUploadService) {
+        this.getInventory();
     }
 
-    updateInventory(event: any) {
-        let fi = event.srcElement;
-        if (fi.files && fi.files[0]) {
-            let fileToUpload = fi.files[0];
+    getInventory() {
+        this.http.get<InventoryRecord[]>(`${this.baseUrl}inventory/get-inventory`).subscribe(result => {
+            this.inventory = result;
+        }, error => { console.error(error); });
+    }
 
-            let formData: FormData = new FormData();
-            formData.append(fileToUpload.name, fileToUpload);
+    getProducts() {
+        this.http.get<Product[]>(`${this.baseUrl}products/get-products`).subscribe(result => {
+            this.products = result;
+        }, error => { console.error(error); });
+    }
 
-            this.httpClient.post(`${this.baseUrl}inventory/update-inventory`, formData)
-                .subscribe(r => console.log(r));
-        }
+    updateInventory(file: any) {
+        const actionUrl = `${this.baseUrl}inventory/update-inventory`;
+        this.fileUploadService.PostFile(file, actionUrl)
+            .subscribe(result => { this.getInventory() },
+                error => { console.error(error); });
+    }
+
+    updateProducts(file: any) {
+        const actionUrl = `${this.baseUrl}products/update-products`;
+        this.fileUploadService.PostFile(file, actionUrl)
+            .subscribe(result => { this.getProducts() },
+                error => { console.error(error); });
     }
 }

@@ -34,10 +34,16 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\models\inventory.ts" />
+    <None Remove="ClientApp\src\app\models\products.ts" />
+    <None Remove="ClientApp\src\app\Services\FileUploadService.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\models\products.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\models\inventory.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Services\FileUploadService.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

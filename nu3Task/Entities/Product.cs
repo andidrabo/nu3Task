@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -8,7 +9,7 @@ namespace nu3Task.Entities
     public partial class Product
     {
         public int Id { get; set; }
-        public int ProductId { get; set; }
+        public long ProductId { get; set; }
         public string Title { get; set; }
         public string BodyHtml { get; set; }
         public string Vendor { get; set; }
@@ -17,5 +18,8 @@ namespace nu3Task.Entities
         public string Handle { get; set; }
         public string PublishedScope { get; set; }
         public string Tags { get; set; }
+
+        [NotMapped]
+        public string ImgSrc { get; set; }
     }
 }

@@ -29,6 +29,7 @@ namespace nu3Task
             services.AddScoped<nu3Context>();
 
             services.AddScoped<IInventoryService, InventoryService>();
+            services.AddScoped<IProductService, ProductService>();
 
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory

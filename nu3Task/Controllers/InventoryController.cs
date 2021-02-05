@@ -17,6 +17,7 @@ namespace nu3Task.Controllers
     public class InventoryController : ControllerBase
     {
         private readonly IInventoryService _inventoryService;
+        private const string INVENTORY_FILE_EXT = ".csv";
         public InventoryController(IInventoryService inventoryService)
         {
             _inventoryService = inventoryService;
@@ -25,7 +26,7 @@ namespace nu3Task.Controllers
         /// <summary>
         /// Get all inventory records
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The inventory</returns>
         [HttpGet("get-inventory")]
         public async Task<IEnumerable<Inventory>> GetInventory()
         {
@@ -43,26 +44,38 @@ namespace nu3Task.Controllers
         /// <summary>
         /// Update the inventory from csv file
         /// </summary>
-        /// <returns></returns>
+        /// <returns>ActionResult</returns>
         [HttpPost("update-inventory")]
         public async Task<IActionResult> UpdateInventory()
         {
             try
             {
+                // Get uploaded file
                 var file = Request.Form.Files[0];
+                string extension = Path.GetExtension(file.FileName);
 
                 if (file.Length == 0)
                 {
                     return BadRequest();
                 }
+                else if (extension != INVENTORY_FILE_EXT)
+                {
+                    throw new Exception($"Inventory file must be in {INVENTORY_FILE_EXT} format!");
+                }
                 else
                 {
+                    // Create the stream reader
                     using StreamReader reader = new StreamReader(file.OpenReadStream());
+
+                    // Skip the first line
                     reader.ReadLine();
 
                     string content = reader.ReadToEnd();
 
+                    // Parse the inventory records
                     var records = _inventoryService.ParseInventoryRecords(content);
+
+                    // Update the db with the new inventory
                     await _inventoryService.UpdateInventory(records);
 
                     return new OkResult();

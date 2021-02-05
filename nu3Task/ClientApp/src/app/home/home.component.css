@@ -4,11 +4,19 @@
   margin-top: 2rem;
 }
 
+form {
+  display: flex;
+}
+
+#inv-wrapper {
+  margin-right: 7rem;
+}
+
 #form-container label {
   cursor: pointer;
   color: blue;
 }
 
-#form-container label:first-of-type{
-  margin-right:100px;
-}
+  #form-container label:first-of-type {
+    margin-right: 100px;
+  }

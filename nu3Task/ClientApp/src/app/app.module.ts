@@ -7,22 +7,26 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { FileUploadService } from './Services/FileUploadService';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
+
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
-    FormsModule,
+      FormsModule,
+      NgxSpinnerModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
     ])
-  ],
-  providers: [],
+    ],
+    providers: [FileUploadService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

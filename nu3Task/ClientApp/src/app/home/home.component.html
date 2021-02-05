@@ -1,7 +1,7 @@
 <div id="form-container">
   <form>
-    <div>
-      <input type="file" id="inventory" accept=".csv" style="display:none;" (change)="updateInventory($event)"/>
+    <div id="inv-wrapper">
+      <input type="file" id="inventory" accept=".csv" style="display:none;" (change)="updateInventory($event)" />
       <label for="inventory">Update inventory</label>
       <table class='table table-striped' aria-labelledby="tableLabel">
         <thead>
@@ -20,43 +20,30 @@
         </tbody>
       </table>
     </div>
-    <input type="file" id="products" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style="display:none;" />
-    <label for="products">Update products</label>
-    <table class='table table-striped' aria-labelledby="tableLabel">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Title</th>
-          <th>Vendor</th>
-          <th>Created on</th>
-          <th>Img</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Test test</td>
-          <td>Berlin</td>
-          <td>2</td>
-          <td>2</td>
-          <td><img src="https://via.placeholder.com/50/50" width="50" height="50" /></td>
-        </tr>
-        <tr>
-          <td>Test test</td>
-          <td>Berlin</td>
-          <td>2</td>
-          <td>2</td>
-          <td><img src="https://via.placeholder.com/50/50" width="50" height="50" /></td>
-        </tr>
-        <tr>
-          <td>Test test</td>
-          <td>Berlin</td>
-          <td>2</td>
-          <td>2</td>
-          <td><img src="https://via.placeholder.com/50/50" width="50" height="50" /></td>
-        </tr>
-      </tbody>
-    </table>
+    <div id="prod-wrapper">
+      <input type="file" id="products" accept="text/xml" style="display:none;" (change)="updateProducts($event)" />
+      <label for="products">Update products</label>
+      <table class='table table-striped' aria-labelledby="tableLabel">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Vendor</th>
+            <th>Created on</th>
+            <th>Img</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let record of products">
+            <td>{{row.productId}}</td>
+            <td>{{row.title}}</td>
+            <td>{{row.vendor}}</td>
+            <td>{{row.created}}</td>
+            <td><img src="{{row.imgSrc}}" width="50" height="50" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </form>
-
 </div>
 
